@@ -3,6 +3,7 @@
 
 
 Пример вызова компонента
+```php
 <?$APPLICATION->IncludeComponent(
 	"local:group.user",
 	".default",
@@ -18,5 +19,5 @@
   false,
   Array()
 );?>
-
+```
 Компонент располагается в директории /bitrix/components/local
