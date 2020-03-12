@@ -8,15 +8,16 @@ $arGroups = CUser::GetUserGroup($user_id); // получение списка г
 
 $grA_id = $arResult['grA_id'];
 $grB_id = $arResult['grB_id'];
-
+function getIBlockID($group_id){
+	$dbIBlocks = CIBlock::GetList(array("SORT" => "ASC"),array("ACTIVE" => "Y","ID" => $group_id));
+	$arIBlocks = $dbIBlocks->Fetch();
+	return $arIBlocks;
+}
 // получение первого инфоблока по id
-$dbIBlocks_1 = CIBlock::GetList(array("SORT" => "ASC"),array("ACTIVE" => "Y","ID" => $arResult['group_a']));
-	$arIBlocks_1 = $dbIBlocks_1->Fetch();
+$arIBlocks_1 = getIBlockID($arResult['group_a']);
 		
-
 // получение второго инфоблока по id
-$dbIBlocks_2 = CIBlock::GetList(array("SORT" => "ASC"),array("ACTIVE" => "Y","ID" => $arResult['group_b']));
-	$arIBlocks_2 = $dbIBlocks_2->Fetch();
+$arIBlocks_2 = getIBlockID($arResult['group_b']);
 
 // проверка групп пользователя
 if( in_array($grA_id, $arGroups ) && in_array($grB_id, $arGroups) )
