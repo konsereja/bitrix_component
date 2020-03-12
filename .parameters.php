@@ -15,20 +15,17 @@ while ($arIBlockType = $dbIBlockType->Fetch())
 }
 
 // Получение списка инфоблоков заданного типа
-
-	$dbIBlocks_1 = CIBlock::GetList(array("SORT" => "ASC"),array("ACTIVE" => "Y","TYPE" => $arCurrentValues["IBLOCK_TYPE_1"],));
-	while ($arIBlocks_1 = $dbIBlocks_1->Fetch())
+function IBlockGetListType($iBlockType){
+	$dbIBlocks = CIBlock::GetList(array("SORT" => "ASC"),array("ACTIVE" => "Y","TYPE" => $iBlockType,));
+	while ($arIBlocks = $dbIBlocks->Fetch())
 	{
-		$paramIBlocks_1[$arIBlocks_1["ID"]] = "[" . $arIBlocks_1["ID"] . "] " . $arIBlocks_1["NAME"];
+		$paramIBlocks[$arIBlocks["ID"]] = "[" . $arIBlocks["ID"] . "] " . $arIBlocks["NAME"];
 	}
+	return $paramIBlocks;
+}
 
-
-
-	$dbIBlocks_2 = CIBlock::GetList(array("SORT" => "ASC"),array("ACTIVE" => "Y","TYPE" => $arCurrentValues["IBLOCK_TYPE_2"],));
-	while ($arIBlocks_2 = $dbIBlocks_2->Fetch())
-	{
-		$paramIBlocks_2[$arIBlocks_2["ID"]] = "[" . $arIBlocks_2["ID"] . "] " . $arIBlocks_2["NAME"];
-	}
+$paramIBlocks_1 = IBlockGetListType($arCurrentValues["IBLOCK_TYPE_1"]);
+$paramIBlocks_2 = IBlockGetListType($arCurrentValues["IBLOCK_TYPE_2"]);
 
 // Получение группы пользователей
 $rsGroups = CGroup::GetList($by = "c_sort", $order = "asc", array("ACTIVE" => "Y"));
